@@ -67,14 +67,10 @@ class CreateTicketUsecase:
             raise SeatNotAvailable(seat)
 
         # 5. Регистрация в провайдере
-        ticket_id = await self._client.register(
-            event.id, first_name, last_name, email, seat
-        )
+        ticket_id = await self._client.register(event.id, first_name, last_name, email, seat)
 
         # 6. Сохранить билет локально
-        await self._tickets.create(
-            event.id, ticket_id, first_name, last_name, email, seat
-        )
+        await self._tickets.create(event.id, ticket_id, first_name, last_name, email, seat)
 
         # 7. Сбросить кэш мест
         invalidate_seats_cache(event_id)

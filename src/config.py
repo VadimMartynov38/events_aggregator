@@ -14,9 +14,7 @@ class Settings(BaseSettings):
     port: int = 8000
     sync_interval_hours: int = 24
     request_timeout: float = 10.0
-    database_url: str = (
-        "postgresql+asyncpg://postgres:postgres@localhost:5432/events"
-    )
+    database_url: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/events"
 
 
 settings = Settings()

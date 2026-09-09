@@ -15,9 +15,7 @@ from src.domain import Event, SyncMeta, Ticket
 class EventsProviderClient(typing.Protocol):
     """Клиент стороннего Events Provider API."""
 
-    async def events(
-        self, changed_at: str, cursor: str | None = None
-    ) -> dict: ...
+    async def events(self, changed_at: str, cursor: str | None = None) -> dict: ...
 
     async def fetch_seats(self, event_id: str) -> list[str] | None: ...
 

@@ -37,9 +37,7 @@ async def register(
     tickets_repo = get_tickets_repo(session)
     seats_usecase = get_seats_usecase(session)
 
-    usecase = CreateTicketUsecase(
-        client, events_repo, tickets_repo, seats_usecase
-    )
+    usecase = CreateTicketUsecase(client, events_repo, tickets_repo, seats_usecase)
 
     try:
         ticket_id = await usecase.do(
@@ -54,9 +52,7 @@ async def register(
     except EventUnexpectedStatus as e:
         raise HTTPException(status_code=400, detail=str(e))
     except RegistrationDeadlinePassed:
-        raise HTTPException(
-            status_code=400, detail="Дедлайн регистрации прошёл"
-        )
+        raise HTTPException(status_code=400, detail="Дедлайн регистрации прошёл")
     except SeatNotAvailable as e:
         raise HTTPException(status_code=400, detail=str(e))
     except SeatAlreadyTaken as e:
@@ -65,9 +61,7 @@ async def register(
     return RegisterResponseSchema(ticket_id=ticket_id)
 
 
-@router.delete(
-    "/api/tickets/{ticket_id}", response_model=CancelResponseSchema
-)
+@router.delete("/api/tickets/{ticket_id}", response_model=CancelResponseSchema)
 async def cancel_registration(
     ticket_id: str,
     session: AsyncSession = Depends(get_session),

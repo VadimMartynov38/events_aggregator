@@ -21,7 +21,7 @@ class SeatAlreadyTaken(Exception):  # noqa: N818
     """Место уже занято."""
 
 
-class RegistrationClosed(Exception):    # noqa: N818
+class RegistrationClosed(Exception):  # noqa: N818
     """Регистрация недоступна — событие не опубликовано или дедлайн прошёл."""
 
 
@@ -55,9 +55,7 @@ class EventsProviderClient:
 
     # ── Events ─────────────────────────────────────────────────
 
-    async def events(
-        self, changed_at: str, cursor: str | None = None
-    ) -> dict:
+    async def events(self, changed_at: str, cursor: str | None = None) -> dict:
         """Получить одну страницу событий.
 
         Returns:
@@ -110,9 +108,7 @@ class EventsProviderClient:
             },
         )
         if resp.status_code == 400:
-            raise SeatAlreadyTaken(
-                f"Место {seat} уже занято или некорректные данные"
-            )
+            raise SeatAlreadyTaken(f"Место {seat} уже занято или некорректные данные")
         if resp.status_code == 404:
             raise EventNotFoundExternal(f"Событие {event_id} не найдено")
         resp.raise_for_status()
@@ -132,11 +128,12 @@ class EventsProviderClient:
         return data.get("success", True)
 
 
-class EventNotFoundExternal(Exception): # noqa: N818
+class EventNotFoundExternal(Exception):  # noqa: N818
     """Событие не найдено во внешнем API."""
 
 
 # ── Парсинг ───────────────────────────────────────────────────
+
 
 def _parse_event(raw: dict) -> Event:
     place_raw = raw.get("place", {})
@@ -158,9 +155,7 @@ def _parse_event(raw: dict) -> Event:
             created_at=datetime.fromisoformat(place_raw["created_at"]),
         ),
         event_time=datetime.fromisoformat(raw["event_time"]),
-        registration_deadline=datetime.fromisoformat(
-            raw["registration_deadline"]
-        ),
+        registration_deadline=datetime.fromisoformat(raw["registration_deadline"]),
         status=status,
         number_of_visitors=raw.get("number_of_visitors", 0),
         changed_at=datetime.fromisoformat(raw["changed_at"]),

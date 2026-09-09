@@ -1,11 +1,11 @@
 """Доменные исключения бизнес-логики."""
 
 
-class EventNotFound(Exception): # noqa: N818
+class EventNotFound(Exception):  # noqa: N818
     """Событие не найдено в локальной БД."""
 
 
-class EventUnexpectedStatus(Exception): # noqa: N818
+class EventUnexpectedStatus(Exception):  # noqa: N818
     """Событие не опубликовано — регистрация недоступна."""
 
     def __init__(self, status: str) -> None:
@@ -25,9 +25,9 @@ class SeatNotAvailable(Exception):  # noqa: N818
         super().__init__(f"Место {seat} недоступно")
 
 
-class RegistrationDeadlinePassed(Exception):    # noqa: N818
+class RegistrationDeadlinePassed(Exception):  # noqa: N818
     """Дедлайн регистрации прошёл."""
 
 
-class TicketNotFound(Exception):    # noqa: N818
+class TicketNotFound(Exception):  # noqa: N818
     """Билет не найден."""

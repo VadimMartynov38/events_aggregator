@@ -28,9 +28,7 @@ class TestEventsPaginatorSinglePage:
     async def test_single_page(self, sample_event_raw):
         """Одна страница — отдаёт все события, потом StopAsyncIteration."""
         mock_client = AsyncMock()
-        mock_client.events = AsyncMock(
-            return_value=_make_page([sample_event_raw], next_url=None)
-        )
+        mock_client.events = AsyncMock(return_value=_make_page([sample_event_raw], next_url=None))
 
         paginator = EventsPaginator(mock_client, changed_at="2000-01-01")
 
@@ -46,9 +44,7 @@ class TestEventsPaginatorSinglePage:
     async def test_empty_page(self):
         """Пустая страница — сразу StopAsyncIteration."""
         mock_client = AsyncMock()
-        mock_client.events = AsyncMock(
-            return_value=_make_page([], next_url=None)
-        )
+        mock_client.events = AsyncMock(return_value=_make_page([], next_url=None))
 
         paginator = EventsPaginator(mock_client, changed_at="2000-01-01")
 
@@ -63,16 +59,11 @@ class TestEventsPaginatorSinglePage:
 class TestEventsPaginatorMultiplePages:
     """Пагинация: несколько страниц."""
 
-    async def test_multiple_pages(
-        self, sample_event_raw, sample_event_raw_2
-    ):
+    async def test_multiple_pages(self, sample_event_raw, sample_event_raw_2):
         """Две страницы — отдаёт события из обеих."""
         page1 = _make_page(
             [sample_event_raw],
-            next_url=(
-                "http://provider/api/events/"
-                "?changed_at=2000-01-01&cursor=abc"
-            ),
+            next_url=("http://provider/api/events/?changed_at=2000-01-01&cursor=abc"),
         )
         page2 = _make_page([sample_event_raw_2], next_url=None)
 
@@ -91,16 +82,11 @@ class TestEventsPaginatorMultiplePages:
         assert paginator.total_yielded == 2
         assert mock_client.events.call_count == 2
 
-    async def test_cursor_passed_between_pages(
-        self, sample_event_raw, sample_event_raw_2
-    ):
+    async def test_cursor_passed_between_pages(self, sample_event_raw, sample_event_raw_2):
         """Курсор из next_url передаётся в следующий запрос."""
         page1 = _make_page(
             [sample_event_raw],
-            next_url=(
-                "http://provider/api/events/"
-                "?changed_at=2000-01-01&cursor=next-cursor-xyz"
-            ),
+            next_url=("http://provider/api/events/?changed_at=2000-01-01&cursor=next-cursor-xyz"),
         )
         page2 = _make_page([sample_event_raw_2], next_url=None)
 
@@ -156,9 +142,7 @@ class TestEventsPaginatorLargeBatch:
         ]
 
         mock_client = AsyncMock()
-        mock_client.events = AsyncMock(
-            return_value=_make_page(raw_events, next_url=None)
-        )
+        mock_client.events = AsyncMock(return_value=_make_page(raw_events, next_url=None))
 
         paginator = EventsPaginator(mock_client, changed_at="2000-01-01")
 
@@ -177,9 +161,7 @@ class TestEventsPaginatorChangedAt:
     async def test_changed_at_passed_to_client(self, sample_event_raw):
         """changed_at передаётся в клиент корректно."""
         mock_client = AsyncMock()
-        mock_client.events = AsyncMock(
-            return_value=_make_page([sample_event_raw], next_url=None)
-        )
+        mock_client.events = AsyncMock(return_value=_make_page([sample_event_raw], next_url=None))
 
         paginator = EventsPaginator(mock_client, changed_at="2026-06-01")
         async for _ in paginator:

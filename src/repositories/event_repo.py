@@ -40,14 +40,8 @@ class SqlEventRepository:
         total = (await self._session.execute(count_query)).scalar_one()
 
         offset = (page - 1) * page_size
-        page_query = (
-            query.order_by(EventRow.event_time)
-            .limit(page_size)
-            .offset(offset)
-        )
-        rows: Sequence[EventRow] = (
-            (await self._session.execute(page_query)).scalars().all()
-        )
+        page_query = query.order_by(EventRow.event_time).limit(page_size).offset(offset)
+        rows: Sequence[EventRow] = (await self._session.execute(page_query)).scalars().all()
 
         events = [_row_to_event(r) for r in rows]
         return events, total

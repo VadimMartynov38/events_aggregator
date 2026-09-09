@@ -44,9 +44,7 @@ class SyncWorker:
 
     async def start(self) -> None:
         """Запустить воркер: первичная синхронизация + расписание."""
-        logger.info(
-            "Воркер синхронизации запущен (интервал: %dч)", self._interval_hours
-        )
+        logger.info("Воркер синхронизации запущен (интервал: %dч)", self._interval_hours)
 
         # Первичная синхронизация
         await self._run_sync()

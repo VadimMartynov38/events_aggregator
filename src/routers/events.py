@@ -61,9 +61,7 @@ def _event_to_detail(event: Event) -> EventDetailSchema:
 
 @router.get("/", response_model=PaginatedEventsSchema)
 async def list_events(
-    date_from: date | None = Query(
-        None, description="События от даты (YYYY-MM-DD)"
-    ),
+    date_from: date | None = Query(None, description="События от даты (YYYY-MM-DD)"),
     page: int = Query(1, ge=1, description="Номер страницы"),
     page_size: int = Query(20, ge=1, le=100, description="Размер страницы"),
     session: AsyncSession = Depends(get_session),

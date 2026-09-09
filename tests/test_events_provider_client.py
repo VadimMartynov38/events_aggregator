@@ -23,18 +23,14 @@ def client():
     )
 
 
-def _mock_response(
-    status_code: int, json_data: dict | list | None = None
-) -> MagicMock:
+def _mock_response(status_code: int, json_data: dict | list | None = None) -> MagicMock:
     """Создать mock httpx.Response."""
     resp = MagicMock()
     resp.status_code = status_code
     resp.json.return_value = json_data or {}
 
     if status_code >= 400:
-        error = httpx.HTTPStatusError(
-            "error", request=MagicMock(), response=resp
-        )
+        error = httpx.HTTPStatusError("error", request=MagicMock(), response=resp)
         resp.raise_for_status.side_effect = error
     else:
         resp.raise_for_status = MagicMock()
@@ -159,9 +155,7 @@ class TestRegisterMethod:
         mock_http.post = AsyncMock(return_value=mock_resp)
         with patch.object(client, "_ensure_client", return_value=mock_http):
             with pytest.raises(SeatAlreadyTaken):
-                await client.register(
-                    "event-1", "Иван", "Иванов", "ivan@example.com", "A1"
-                )
+                await client.register("event-1", "Иван", "Иванов", "ivan@example.com", "A1")
 
 
 class TestUnregisterMethod:
