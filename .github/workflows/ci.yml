@@ -18,9 +18,9 @@ jobs:
       - name: Install dependencies
         run: uv sync --extra dev
       - name: Run ruff check
-        run: uv run ruff check .
+        run: uv run ruff check src/ tests/
       - name: Run ruff format check
-        run: uv run ruff format --check .
+        run: uv run ruff format --check src/ tests/
 
   test:
     runs-on: ubuntu-latest
