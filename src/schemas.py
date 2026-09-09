@@ -2,8 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import date, datetime
-from typing import Optional
+from datetime import datetime
 
 from pydantic import BaseModel, EmailStr, Field
 
@@ -35,8 +34,8 @@ class EventDetailSchema(EventSchema):
 
 class PaginatedEventsSchema(BaseModel):
     count: int
-    next: Optional[str] = None
-    previous: Optional[str] = None
+    next: str | None = None
+    previous: str | None = None
     results: list[EventSchema]
 
 
@@ -64,8 +63,8 @@ class CancelResponseSchema(BaseModel):
 class HealthSchema(BaseModel):
     status: str
     provider_url: str
-    last_sync: Optional[datetime] = None
-    sync_status: Optional[str] = None
+    last_sync: datetime | None = None
+    sync_status: str | None = None
 
 
 class SyncTriggerResponseSchema(BaseModel):

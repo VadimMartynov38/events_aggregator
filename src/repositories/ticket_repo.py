@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -32,7 +32,7 @@ class SqlTicketRepository:
             last_name=last_name,
             email=email,
             seat=seat,
-            created_at=datetime.now(timezone.utc),
+            created_at=datetime.now(UTC),
         )
         self._session.add(row)
         await self._session.commit()

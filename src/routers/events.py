@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from datetime import date
-from typing import Optional
 from urllib.parse import urlencode
 
 from fastapi import APIRouter, Depends, HTTPException, Query
@@ -12,8 +11,13 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from src.db import get_session
 from src.deps import get_events_repo
 from src.domain import Event
-from src.schemas import (EventDetailSchema, EventSchema, PaginatedEventsSchema,
-                         PlaceDetailSchema, PlaceSchema)
+from src.schemas import (
+    EventDetailSchema,
+    EventSchema,
+    PaginatedEventsSchema,
+    PlaceDetailSchema,
+    PlaceSchema,
+)
 from src.usecases.events import GetEventUsecase, ListEventsUsecase
 from src.usecases.exceptions import EventNotFound
 
@@ -57,7 +61,7 @@ def _event_to_detail(event: Event) -> EventDetailSchema:
 
 @router.get("/", response_model=PaginatedEventsSchema)
 async def list_events(
-    date_from: Optional[date] = Query(
+    date_from: date | None = Query(
         None, description="События от даты (YYYY-MM-DD)"
     ),
     page: int = Query(1, ge=1, description="Номер страницы"),

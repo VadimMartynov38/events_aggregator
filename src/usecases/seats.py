@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import asyncio
 import logging
-from typing import Optional
 
 from src.cache import seats_cache
 from src.protocols import EventRepository, EventsProviderClient
@@ -30,7 +29,7 @@ class GetSeatsUsecase:
         self._client = client
         self._cache_ttl = cache_ttl
 
-    async def do(self, event_id: str) -> Optional[list[str]]:
+    async def do(self, event_id: str) -> list[str] | None:
         # 1. Проверяем кэш
         cache_key = f"seats:{event_id}"
         cached = seats_cache.get(cache_key)

@@ -17,11 +17,11 @@ from src.domain import Event, EventStatus, Place
 logger = logging.getLogger(__name__)
 
 
-class SeatAlreadyTaken(Exception):
+class SeatAlreadyTaken(Exception):  # noqa: N818
     """Место уже занято."""
 
 
-class RegistrationClosed(Exception):
+class RegistrationClosed(Exception):    # noqa: N818
     """Регистрация недоступна — событие не опубликовано или дедлайн прошёл."""
 
 
@@ -132,7 +132,7 @@ class EventsProviderClient:
         return data.get("success", True)
 
 
-class EventNotFoundExternal(Exception):
+class EventNotFoundExternal(Exception): # noqa: N818
     """Событие не найдено во внешнем API."""
 
 

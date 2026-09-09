@@ -8,7 +8,7 @@
 from __future__ import annotations
 
 import logging
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from src.clients.events_provider import EventsProviderClient
 from src.clients.paginator import EventsPaginator
@@ -84,7 +84,7 @@ class SyncEventsUsecase:
         except Exception as exc:
             logger.exception("Ошибка синхронизации: %s", exc)
             await self._sync_meta.update(
-                last_sync_time=datetime.now(timezone.utc),
+                last_sync_time=datetime.now(UTC),
                 last_changed_at=max_changed_at,
                 sync_status="error",
                 events_synced=total_synced,
@@ -94,7 +94,7 @@ class SyncEventsUsecase:
 
         # 3. Метаданные
         await self._sync_meta.update(
-            last_sync_time=datetime.now(timezone.utc),
+            last_sync_time=datetime.now(UTC),
             last_changed_at=max_changed_at,
             sync_status="success",
             events_synced=total_synced,
