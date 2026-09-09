@@ -4,18 +4,11 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 
-from src.protocols import (
-    EventRepository,
-    EventsProviderClient,
-    TicketRepository,
-)
-from src.usecases.exceptions import (
-    EventNotFound,
-    EventUnexpectedStatus,
-    RegistrationDeadlinePassed,
-    SeatNotAvailable,
-    TicketNotFound,
-)
+from src.protocols import (EventRepository, EventsProviderClient,
+                           TicketRepository)
+from src.usecases.exceptions import (EventNotFound, EventUnexpectedStatus,
+                                     RegistrationDeadlinePassed,
+                                     SeatNotAvailable, TicketNotFound)
 from src.usecases.seats import GetSeatsUsecase, invalidate_seats_cache
 
 

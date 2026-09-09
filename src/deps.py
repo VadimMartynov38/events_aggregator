@@ -6,12 +6,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.clients.events_provider import EventsProviderClient
 from src.db import async_session_factory
-from src.protocols import (
-    EventRepository,
-    EventsProviderClient as EventsProviderClientProto,
-    SyncMetaRepository,
-    TicketRepository,
-)
+from src.protocols import EventRepository
+from src.protocols import EventsProviderClient as EventsProviderClientProto
+from src.protocols import SyncMetaRepository, TicketRepository
 from src.repositories.event_repo import SqlEventRepository
 from src.repositories.sync_repo import SqlSyncMetaRepository
 from src.repositories.ticket_repo import SqlTicketRepository

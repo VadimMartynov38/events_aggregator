@@ -10,11 +10,8 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import httpx
 import pytest
 
-from src.clients.events_provider import (
-    EventsProviderClient,
-    SeatAlreadyTaken,
-    _parse_event,
-)
+from src.clients.events_provider import (EventsProviderClient,
+                                         SeatAlreadyTaken, _parse_event)
 from src.domain import Event, EventStatus
 
 

@@ -12,13 +12,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from src.db import get_session
 from src.deps import get_events_repo
 from src.domain import Event
-from src.schemas import (
-    EventDetailSchema,
-    EventSchema,
-    PaginatedEventsSchema,
-    PlaceDetailSchema,
-    PlaceSchema,
-)
+from src.schemas import (EventDetailSchema, EventSchema, PaginatedEventsSchema,
+                         PlaceDetailSchema, PlaceSchema)
 from src.usecases.events import GetEventUsecase, ListEventsUsecase
 from src.usecases.exceptions import EventNotFound
 

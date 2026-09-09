@@ -7,24 +7,13 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.clients.events_provider import SeatAlreadyTaken
 from src.db import get_session
-from src.deps import (
-    get_events_repo,
-    get_provider_client,
-    get_seats_usecase,
-    get_tickets_repo,
-)
-from src.schemas import (
-    CancelResponseSchema,
-    RegisterRequestSchema,
-    RegisterResponseSchema,
-)
-from src.usecases.exceptions import (
-    EventNotFound,
-    EventUnexpectedStatus,
-    RegistrationDeadlinePassed,
-    SeatNotAvailable,
-    TicketNotFound,
-)
+from src.deps import (get_events_repo, get_provider_client, get_seats_usecase,
+                      get_tickets_repo)
+from src.schemas import (CancelResponseSchema, RegisterRequestSchema,
+                         RegisterResponseSchema)
+from src.usecases.exceptions import (EventNotFound, EventUnexpectedStatus,
+                                     RegistrationDeadlinePassed,
+                                     SeatNotAvailable, TicketNotFound)
 from src.usecases.tickets import CancelTicketUsecase, CreateTicketUsecase
 
 router = APIRouter(tags=["tickets"])
