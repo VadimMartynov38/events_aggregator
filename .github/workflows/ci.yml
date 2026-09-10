@@ -1,4 +1,4 @@
-name: CI
+name: CI/CD
 
 on:
   push:
@@ -35,3 +35,36 @@ jobs:
         run: uv sync --extra dev
       - name: Run tests
         run: uv run pytest -v
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    needs: [lint, test]
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Set up Python 3.11
+        run: uv python install 3.11
+
+      - name: Install dependencies
+        run: uv sync --extra dev
+
+      - name: Send deploy request
+        run: |
+          HTTP_CODE=$(curl -s -o response.txt -w "%{http_code}" -X POST \
+            -H "Content-Type: application/json" \
+            -H "X-API-Key: ${{ secrets.LMS_API_KEY }}" \
+            -d '{"image":"ghcr.io/${{ github.repository }}:${{ github.sha }}","repository":"${{ github.repository }}"}' \
+            https://lms.python-labs.ru/api/deploy-requests)
+
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "Deployment failed with status code $HTTP_CODE"
+            echo "Response body:"
+            cat response.txt
+            exit 1
+          fi
