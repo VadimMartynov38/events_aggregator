@@ -10,7 +10,7 @@ class Settings(BaseSettings):
 
     model_config = SettingsConfigDict(env_file=".env")
 
-    provider_base_url: str = "https://events-provider.dev-2.python-labs.ru"
+    provider_base_url: str = "http://student-system-events-provider-web.student-system-events-provider.svc:8000"
     provider_api_key: str = "RsOB79YmORuaILmZoVrDJIl5mPq8R091jpR8HW7UbnM"
     host: str = "0.0.0.0"
     port: int = 8000
