@@ -13,7 +13,7 @@ from src.usecases.exceptions import EventNotFound, EventUnexpectedStatus
 router = APIRouter(prefix="/api/events", tags=["seats"])
 
 
-@router.get("/{event_id}/seats/", response_model=SeatsSchema)
+@router.get("/{event_id}/seats", response_model=SeatsSchema)
 async def list_seats(
     event_id: str,
     session: AsyncSession = Depends(get_session),

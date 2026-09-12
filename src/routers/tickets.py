@@ -21,7 +21,7 @@ from src.usecases.tickets import CancelTicketUsecase, CreateTicketUsecase
 router = APIRouter(tags=["tickets"])
 
 
-@router.post("/api/tickets/", response_model=RegisterResponseSchema, status_code=201)
+@router.post("/api/tickets", response_model=RegisterResponseSchema, status_code=201)
 async def register(
     body: RegisterRequestSchema,
     session: AsyncSession = Depends(get_session),

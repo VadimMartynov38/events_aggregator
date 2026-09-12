@@ -13,7 +13,7 @@ from src.schemas import HealthSchema
 router = APIRouter(tags=["health"])
 
 
-@router.get("/api/health/", response_model=HealthSchema)
+@router.get("/api/health", response_model=HealthSchema)
 async def health(session: AsyncSession = Depends(get_session)):
     """Проверка доступности сервиса и статуса последней синхронизации."""
     sync_repo = get_sync_meta_repo(session)

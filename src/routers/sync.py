@@ -13,7 +13,7 @@ from src.usecases.sync import SyncEventsUsecase
 router = APIRouter(tags=["sync"])
 
 
-@router.post("/api/sync/trigger/", response_model=SyncTriggerResponseSchema)
+@router.post("/api/sync/trigger", response_model=SyncTriggerResponseSchema)
 async def trigger_sync(
     session: AsyncSession = Depends(get_session),
 ):
