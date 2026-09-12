@@ -6,9 +6,10 @@ import contextlib
 import logging
 
 from fastapi import FastAPI
+from prometheus_fastapi_instrumentator import Instrumentator
 
 from src.config import settings
-from src.db import async_session_factory, engine  # init_db больше не нужен в lifespan
+from src.db import async_session_factory, engine
 from src.deps import close_provider_client, get_provider_client
 from src.repositories.event_repo import SqlEventRepository
 from src.repositories.sync_repo import SqlSyncMetaRepository
@@ -64,6 +65,8 @@ app = FastAPI(
     version="1.0.0",
     lifespan=lifespan,
 )
+
+Instrumentator().instrument(app).expose(app, endpoint="/metrics")
 
 app.include_router(health.router)
 app.include_router(events.router)
