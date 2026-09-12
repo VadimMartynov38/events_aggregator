@@ -1,4 +1,5 @@
 """Конфигурация приложения."""
+
 import os
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -18,5 +19,6 @@ class Settings(BaseSettings):
     conn_str = os.getenv("POSTGRES_CONNECTION_STRING", "")
     if conn_str:
         database_url = conn_str.replace("postgres://", "postgresql+asyncpg://")
+
 
 settings = Settings()
