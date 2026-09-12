@@ -20,9 +20,9 @@ services:
     build: .
     env_file: .env
     environment:
-      AGGREGATOR_DATABASE_URL: postgresql+asyncpg://postgres:postgres@db:5432/events
-      AGGREGATOR_PROVIDER_BASE_URL: https://events-provider.dev-2.python-labs.ru
-      AGGREGATOR_PROVIDER_API_KEY: ${AGGREGATOR_PROVIDER_API_KEY}
+      DATABASE_URL: postgresql+asyncpg://postgres:postgres@db:5432/events
+      PROVIDER_BASE_URL: https://events-provider.dev-2.python-labs.ru
+      PROVIDER_API_KEY: ${PROVIDER_API_KEY}
     ports:
       - "8000:8000"
     depends_on:
