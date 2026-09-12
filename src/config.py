@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     provider_base_url: str = (
         "http://student-system-events-provider-web.student-system-events-provider.svc:8000"
     )
-    provider_api_key: str = "RsOB79YmORuaILmZoVrDJIl5mPq8R091jpR8HW7UbnM"
+    provider_api_key: str = ""
     host: str = "0.0.0.0"
     port: int = 8000
     sync_interval_hours: int = 24
@@ -24,6 +24,7 @@ class Settings(BaseSettings):
 settings = Settings()
 
 if not settings.database_url:
+    settings.provider_api_key = os.getenv("api_key", "")
     conn_str = os.getenv("POSTGRES_CONNECTION_STRING", "")
     if conn_str:
         settings.database_url = conn_str.replace("postgres://", "postgresql+asyncpg://")
