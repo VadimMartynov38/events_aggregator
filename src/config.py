@@ -16,9 +16,12 @@ class Settings(BaseSettings):
     port: int = 8000
     sync_interval_hours: int = 24
     request_timeout: float = 10.0
-    conn_str = os.getenv("POSTGRES_CONNECTION_STRING", "")
-    if conn_str:
-        database_url = conn_str.replace("postgres://", "postgresql+asyncpg://")
+    database_url: str = ""
 
 
 settings = Settings()
+
+if not settings.database_url:
+    conn_str = os.getenv("POSTGRES_CONNECTION_STRING", "")
+    if conn_str:
+        settings.database_url = conn_str.replace("postgres://", "postgresql+asyncpg://")
